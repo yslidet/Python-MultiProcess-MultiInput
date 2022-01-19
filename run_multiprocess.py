@@ -57,7 +57,7 @@ def funct_manager(list_to_write, pre_text = "-", worker=-1):
     pool.join()
     pool.terminate()
 
-    #combine data
+    #combine data - TODO:  to update
     for data in tqdm(data_aug, desc="Combine Data"):
         df_aug_ap = df_aug_ap.append(data[1], ignore_index=True)  # save augmented data
         df_aug_info = df_aug_info.append(data[0], ignore_index=True)
@@ -69,7 +69,9 @@ def test_multi_p(data_i,data_j):
 
 
 
-#%% TEST - MAIN --------------------------------------------------------------------------
+#%% MAIN - Test Multiprocess --------------------------------------------------------------------------
+if __name__ == '__main__':
+    funct_manager(list_to_write, pre_text="-", worker=-1)
 """
 #%% SETUP logger & header
 REPORTER = 'AUG_Scheme2'
