@@ -23,7 +23,7 @@ import matplotlib.pyplot as plt
 #%% Function - Data Augmentation - 2
 import random
 
-def funct_worker(input_list):#N=60, defaultMissingAP=-110):
+def funct_worker(input_list):
     """
     Worker Function: define function that each process should do
     e.g. combine list into string
@@ -33,21 +33,16 @@ def funct_worker(input_list):#N=60, defaultMissingAP=-110):
     return output_string
 
 
-def funct_manager(list_to_combine, worker=-1):
+def funct_manager(list_to_write, pre_text = "-", worker=-1):
     """
     Manager Function:
     :param list_to_combine:
-    :param worker: '-1'
+    :param worker: number of processes to be used; default = -1: use all available process
     :return:
     """
     #prepare data
-    df_rssi = df_rssi.replace(-100, -110)
-    rss_list = [df_rssi.iloc[i] for i in trange(len(df_rssi))]
-    xy_list = [df_info.iloc[i] for i in trange(len(df_info))]
-
-    # init new data
-    df_aug_ap = pd.DataFrame(columns=df_rssi.columns)
-    df_aug_info = pd.DataFrame(columns=df_info.columns)
+    # list_to_write
+    # pre_text
 
     # multi-processing
     if worker==-1:
@@ -57,7 +52,7 @@ def funct_manager(list_to_combine, worker=-1):
 
     #data_aug = (xy_aug, rss_aug)
     data_aug = []
-    data_aug += pool.starmap(aug_data_2_sample,zip(xy_list,rss_list,[N for i in range(len(rss_list))],[defaultMissingAP for i in range(len(rss_list))]))
+    data_aug += pool.starmap(aug_data_2_sample,zip(list_to_write,[pre_text for i in range(len(list_to_write))]))
     pool.close()
     pool.join()
     pool.terminate()
